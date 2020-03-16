@@ -1,5 +1,6 @@
 # Scalable Performance Models for <br>Highly Configurable Systems
 
+Jeho Oh, Oleg Zillman
 
 ## Problem Statement
 
