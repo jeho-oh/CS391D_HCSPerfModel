@@ -3,12 +3,8 @@ import pandas as pd
 import numpy as np
 import torch
 
-# Not using the default format for pytorch Dataset for now,  
-# as need more flexebility - but it's structures some what similiarly. 
 
-# TODO: maybe change later to a proper torch Dataset API if want to use the 
-#       the torch dataloader. However these are small data sets so prob not 
-#       needed
+# DataLoader in pytorch's style
 class DataLoader:
     def __init__(self,datadir,do_torch=False):
         self.dir = datadir
@@ -25,12 +21,11 @@ class DataLoader:
         try:
             self.data_frame = pd.read_csv(filepath)
         except Exception as e:
-            raise "Can't load data csv file. Error: {}".format(e)
+            raise Exception("Can't load data csv file. Error: {}".format(e))
 
         self.num_samples  = self.data_frame.shape[0]
         self.num_features = self.data_frame.shape[1]-1
 
-        #print(data_frame.iloc[0,:-1])
         self.X = np.zeros([self.num_samples,self.num_features])
         self.Y = np.zeros([self.num_samples,1])
         for index,row in self.data_frame.iterrows():
