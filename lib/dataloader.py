@@ -27,11 +27,11 @@ class DataLoader:
         self.num_features = self.data_frame.shape[1]-1
 
         self.X = np.zeros([self.num_samples,self.num_features])
-        self.Y = np.zeros([self.num_samples,1])
+        self.Y = np.zeros([self.num_samples])
         for index,row in self.data_frame.iterrows():
             self.X[index] = row.iloc[:-1].to_numpy()
             self.Y[index] = row.iloc[-1]
-    
+
     def __len__(self):
         return self.num_samples
 
