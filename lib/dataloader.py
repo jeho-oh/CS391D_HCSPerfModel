@@ -31,7 +31,10 @@ class DataLoader:
         for index,row in self.data_frame.iterrows():
             self.X[index] = row.iloc[:-1].to_numpy()
             self.Y[index] = row.iloc[-1]
-
+        shuffled_indexes = np.random.permutation(np.arange(0,self.num_samples))
+        self.Y = self.Y[shuffled_indexes]
+        self.X = self.X[shuffled_indexes]
+        print("dtype:" + str(self.X.dtype))
     def __len__(self):
         return self.num_samples
 
@@ -39,7 +42,7 @@ class DataLoader:
         if not self.do_torch:
             return self.X[idx],self.Y[idx]
         else:
-            return torch.as_tensor(self.X[idx],dtype=torch.float32),torch.as_tensor(self.Y[idx],dtype=torch.float32)    
+            return torch.as_tensor(self.X[idx],dtype=torch.float64),torch.as_tensor(self.Y[idx],dtype=torch.float64)    
 
 
 
