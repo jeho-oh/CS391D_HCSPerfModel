@@ -138,7 +138,7 @@ def doPca(samples, eigenvec_num):
 
         A_T = samples
 
-        avg_X_T = np.average(A_T, axis=0)
+        avg_X_T = torch.average(A_T, axis=0)
         A_T -= avg_X_T
 
         # Find AA_T - which is the covariance matrix
