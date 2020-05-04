@@ -348,7 +348,7 @@ def configAxTLS():
         print("\n\n ---- \n results {} ".format(results))
     
 def configFiasco():
-    epochs = 3500
+    epochs = 2500
     test_set_size = 300
     lr = 0.00005
     batch_size = 600
