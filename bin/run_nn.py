@@ -49,9 +49,9 @@ def calc_epoch_mse_loss(X,Y,nn_model,pprint=False):
 
 
 def calc_epoch_mape_loss(X,Y,nn_model,pprint=False):
-    print("\ncalc mre loss...")
+    #print("\ncalc mre loss...")
     sample_num = X.shape[0] 
-    print("samplenum:" + str(sample_num))
+    #print("samplenum:" + str(sample_num))
     Y_pred = torch.zeros(sample_num)
     mre_per_sample = torch.zeros(sample_num)
     for i in range(sample_num):
@@ -241,9 +241,9 @@ def run(epochs, train_set_size, test_set_size, lr, batch_size,
         train_loss[epoch]  = \
                      nn.train_net(X=shuffled_X, Y=shuffled_Y, plot=False, 
                                   save_train_data=False, batch_size=batch_size)
-        #test_loss[epoch],_ = calc_epoch_mse_loss(X_test,Y_test,nn, pprint=False)
+        #train_loss[epoch],_ = calc_epoch_mape_loss(X,Y,nn, pprint=False,)
         #Y_test_pred = nn.predict(X_test).detach()
-        test_loss[epoch],_ = calc_epoch_mse_loss(X_test,Y_test,nn)
+        test_loss[epoch],_ = calc_epoch_mape_loss(X_test,Y_test,nn)
                            
         if epoch % 20 == 0:
             logmsg("epoch {} test loss: {}".format(epoch,test_loss[epoch]))
@@ -319,12 +319,13 @@ def configHipa():
 
 
 def configAxTLS():
-    epochs = 300
+    epochs = 2500
     test_set_size = 300
-    lr = 0.0003
+    lr = 0.00003
     batch_size = 600
-    neuron_num = 200
-    lamda = 0.1
+    neuron_num = 300
+    lamda = 0
+    #torch.autograd.set_detect_anomaly(True)
     '''
     epochs = 4000
     train_set_size = 77
@@ -334,7 +335,36 @@ def configAxTLS():
     num_neurons = 30
     '''
     experiments=1
-    for train_set_size in [500,]:
+    for train_set_size in [600,]:
+        batch_size = int(math.ceil(train_set_size/4))
+        results = []
+        for i in range(experiments):
+            res = run(epochs=epochs, train_set_size=train_set_size,
+                test_set_size=test_set_size, lr=lr, batch_size=batch_size,
+                neuron_num=neuron_num, lamda=lamda, plot=True, pca=True, eigenvec_num=80)
+            results.append(res)
+            print("-------- Experiment Done --------")
+        print("\n\n ---- \n Mean MRE:{} ".format(np.sum(np.array(results))/experiments))
+        print("\n\n ---- \n results {} ".format(results))
+    
+def configFiasco():
+    epochs = 3500
+    test_set_size = 300
+    lr = 0.00005
+    batch_size = 600
+    neuron_num = 800
+    lamda = 0
+    #torch.autograd.set_detect_anomaly(True)
+    '''
+    epochs = 4000
+    train_set_size = 77
+    test_set_size = 400
+    lr = 0.001
+    batch_size = 8
+    num_neurons = 30
+    '''
+    experiments=1
+    for train_set_size in [1200,]:
         batch_size = int(math.ceil(train_set_size/4))
         results = []
         for i in range(experiments):
@@ -347,6 +377,7 @@ def configAxTLS():
         print("\n\n ---- \n results {} ".format(results))
     
 
+
 def configUCLib():
     epochs = 200
     train_set_size = 600
@@ -354,7 +385,7 @@ def configUCLib():
     lr = 0.0003
     batch_size = 600
     neuron_num = 200
-    lamda = 1
+    lamda = 0.1
     '''
     epochs = 4000
     train_set_size = 77
@@ -395,8 +426,9 @@ if __name__ == "__main__":
         openlog()
 
     #configHipa()
-    #configAxTLS()
-    configUCLib()
+    configAxTLS()
+    configFiasco()
+    #configUCLib()
     
     
     
