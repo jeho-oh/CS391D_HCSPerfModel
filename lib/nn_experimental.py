@@ -10,9 +10,9 @@ from utils import logmsg
 # Two hidden layers with RELU activation, and linear activation at the output
 # zeros as intialization for the weights. No regularization.
 
-class TrialNet(torch.nn.Module):
+class TrialNetUniformInit(torch.nn.Module):
     def __init__(self, obs_size, hidden_size, hidden2_size, output_size):
-        super(TrialNet, self).__init__()
+        super(TrialNetUniformInit, self).__init__()
         # TODO: change layers to array
         # Add automation
         # Add regression on results for X264 to do this without pain
@@ -26,17 +26,19 @@ class TrialNet(torch.nn.Module):
         self.hidden8 = torch.nn.Linear(hidden2_size, hidden2_size)
         self.output = torch.nn.Linear(hidden2_size, output_size)
         
-        self.hidden1.weight.data.fill_(0.00)
-        self.hidden2.weight.data.fill_(0.00)
-        self.hidden3.weight.data.fill_(0.00)
-        self.hidden4.weight.data.fill_(0.00)
-        self.hidden5.weight.data.fill_(0.00)
-        self.hidden6.weight.data.fill_(0.00)
-        self.hidden7.weight.data.fill_(0.00)
-        self.hidden8.weight.data.fill_(0.00)
+        
+        torch.nn.init.uniform_(self.hidden1.weight,b=0.001)
+        torch.nn.init.uniform_(self.hidden2.weight,b=0.001)
+        torch.nn.init.uniform_(self.hidden3.weight,b=0.001)
+        torch.nn.init.uniform_(self.hidden4.weight,b=0.001)
+        torch.nn.init.uniform_(self.hidden5.weight,b=0.001)
+        torch.nn.init.uniform_(self.hidden6.weight,b=0.001)
+        torch.nn.init.uniform_(self.hidden7.weight,b=0.001)
+        torch.nn.init.uniform_(self.hidden8.weight,b=0.001)
         
 
-        self.output.weight.data.fill_(0.00)
+        torch.nn.init.uniform_(self.output.weight,b=0.001)
+
         #print(self.hidden1.weight)
         #print(self.hidden2.weight)
         #print(self.output.weight)
@@ -51,7 +53,6 @@ class TrialNet(torch.nn.Module):
         x = F.relu(self.hidden7(x))
         x = F.relu(self.hidden8(x))
                
-
         return self.output(x)
 
     def get_layer_W(self):
@@ -66,6 +67,54 @@ class TrialNetNormInit(torch.nn.Module):
         # Add regression on results for X264 to do this without pain
         self.hidden1 = torch.nn.Linear(obs_size, hidden_size)
         self.hidden2 = torch.nn.Linear(hidden_size, hidden2_size)
+        '''self.hidden3 = torch.nn.Linear(hidden2_size, hidden2_size)
+        self.hidden4 = torch.nn.Linear(hidden2_size, hidden2_size)
+        self.hidden5 = torch.nn.Linear(hidden2_size, hidden2_size)
+        self.hidden6 = torch.nn.Linear(hidden2_size, hidden2_size)
+        self.hidden7 = torch.nn.Linear(hidden2_size, hidden2_size)
+        self.hidden8 = torch.nn.Linear(hidden2_size, hidden2_size)'''
+                
+
+        self.output = torch.nn.Linear(hidden2_size, output_size)
+        torch.nn.init.normal_(self.hidden1.weight,mean=-0.1,std=0.3)
+        torch.nn.init.normal_(self.hidden2.weight,mean=0.1,std=0.3)
+        '''torch.nn.init.normal_(self.hidden3.weight,mean=-0.1,std=0.3)
+        torch.nn.init.normal_(self.hidden4.weight,mean=0.1,std=0.3)
+        torch.nn.init.normal_(self.hidden5.weight,mean=-0.1, std=0.3)
+        torch.nn.init.normal_(self.hidden6.weight,mean=0.1,std=0.3)
+        torch.nn.init.normal_(self.hidden7.weight,mean=-0.1,std=0.3)
+        torch.nn.init.normal_(self.hidden8.weight,mean=0.1,std=0.3)'''
+        
+
+        torch.nn.init.normal_(self.output.weight,mean=-0.1,std=0.3)
+        #print(self.hidden1.weight)
+        #print(self.hidden2.weight)
+        #print(self.output.weight)
+
+    def forward(self, x):
+        x = F.relu(self.hidden1(x))
+        x = F.relu(self.hidden2(x))
+        '''x = F.relu(self.hidden3(x))
+        x = F.relu(self.hidden4(x))
+        x = F.relu(self.hidden5(x))
+        x = F.relu(self.hidden6(x))
+        x = F.relu(self.hidden7(x))
+        x = F.relu(self.hidden8(x))'''
+               
+
+        return self.output(x)
+
+    def get_layer_W(self):
+        return self.hidden1.weight
+
+class TrialNetXavInit(torch.nn.Module):
+    def __init__(self, obs_size, hidden_size, hidden2_size, output_size):
+        super(TrialNetXavInit, self).__init__()
+        # TODO: change layers to array
+        # Add automation
+        # Add regression on results for X264 to do this without pain
+        self.hidden1 = torch.nn.Linear(obs_size, hidden_size)
+        self.hidden2 = torch.nn.Linear(hidden_size, hidden2_size)
         self.hidden3 = torch.nn.Linear(hidden2_size, hidden2_size)
         self.hidden4 = torch.nn.Linear(hidden2_size, hidden2_size)
         self.hidden5 = torch.nn.Linear(hidden2_size, hidden2_size)
@@ -75,17 +124,16 @@ class TrialNetNormInit(torch.nn.Module):
                 
 
         self.output = torch.nn.Linear(hidden2_size, output_size)
-        torch.nn.init.normal_(self.hidden1.weight,mean=0,std=0.1)
-        torch.nn.init.normal_(self.hidden2.weight,mean=0,std=0.1)
-        torch.nn.init.normal_(self.hidden3.weight,mean=0,std=0.1)
-        torch.nn.init.normal_(self.hidden4.weight,mean=0,std=0.1)
-        torch.nn.init.normal_(self.hidden5.weight,mean=0,std=0.1)
-        torch.nn.init.normal_(self.hidden6.weight,mean=0,std=0.1)
-        torch.nn.init.normal_(self.hidden7.weight,mean=0,std=0.1)
-        torch.nn.init.normal_(self.hidden8.weight,mean=0,std=0.1)
-        
-
-        torch.nn.init.normal_(self.output.weight,mean=0,std=0.1)
+        torch.nn.init.xavier_normal_(self.hidden1.weight,
+                                    gain=torch.nn.init.calculate_gain('relu'))
+        torch.nn.init.xavier_normal_(self.hidden2.weight,gain=torch.nn.init.calculate_gain('relu'))
+        torch.nn.init.xavier_normal_(self.hidden3.weight,gain=torch.nn.init.calculate_gain('relu'))
+        torch.nn.init.xavier_normal_(self.hidden4.weight,gain=torch.nn.init.calculate_gain('relu'))
+        torch.nn.init.xavier_normal_(self.hidden5.weight,gain=torch.nn.init.calculate_gain('relu'))
+        torch.nn.init.xavier_normal_(self.hidden6.weight,gain=torch.nn.init.calculate_gain('relu'))
+        torch.nn.init.xavier_normal_(self.hidden7.weight,gain=torch.nn.init.calculate_gain('relu'))
+        torch.nn.init.xavier_normal_(self.hidden8.weight,gain=torch.nn.init.calculate_gain('relu'))
+        torch.nn.init.xavier_normal_(self.output.weight,gain=torch.nn.init.calculate_gain('relu'))
         #print(self.hidden1.weight)
         #print(self.hidden2.weight)
         #print(self.output.weight)
@@ -105,6 +153,7 @@ class TrialNetNormInit(torch.nn.Module):
 
     def get_layer_W(self):
         return self.hidden1.weight
+
 
 class FFNet(torch.nn.Module):
     def __init__(self, feature_size, depth, hidden_sizes, output_size,
@@ -120,93 +169,59 @@ class FFNet(torch.nn.Module):
             self.layers.append(torch.nn.Linear(hidden_sizes[i],hidden_sizes[i+1]))
 
             
-        self.layers.append(torch.nn.Linear(hidden_sizes[-1], output_size))
+        self.output = torch.nn.Linear(hidden_sizes[-1], output_size)
         
 
         for layer in self.layers:
             if init == "zero":
                 layer.weight.data.fill_(0.00)
             elif init == "norm":
-                torch.nn.init.normal_(self.layer.weight,mean=0.00,std=init_std)
+                torch.nn.init.normal_(layer.weight,mean=0.00,std=init_std)
             else:
-                torch.nn.init.xavier_normal(
-                                    self.layer.weight,
+                torch.nn.init.xavier_normal_(
+                                    layer.weight,
                                     gain=torch.nn.init.calculate_gain('relu'))
+        if init == "zero":
+            self.output.weight.data.fill_(0.00)
+        elif init == "norm":
+            torch.nn.init.normal_(self.output.weight, mean=0.00,std=init_std)
+        else:
+            torch.nn.init.xavier_normal_(
+                                   self.output.weight,
+                                    gain=torch.nn.init.calculate_gain('relu'))
+        
         #print(self.layers[-1.weight)
         
     def forward(self, x):
-        for i in range(0,self.depth):
-            x = F.relu(layers[i](x))
+        for layer in self.layers:
+            x = F.relu(layer(x))
         
-        return self.layers[-1](x)
+        return self.output(x)
 
     def get_layer_W(self,i):
         return self.layers[i-1].weight
 
 
-class TrialNetNormInit(torch.nn.Module):
-    def __init__(self, obs_size, hidden_size, hidden2_size, output_size):
-        super(TrialNetNormInit, self).__init__()
-        # TODO: change layers to array
-        # Add automation
-        # Add regression on results for X264 to do this without pain
-        self.hidden1 = torch.nn.Linear(obs_size, hidden_size)
-        self.hidden2 = torch.nn.Linear(hidden_size, hidden2_size)
-        self.hidden3 = torch.nn.Linear(hidden2_size, hidden2_size)
-        self.hidden4 = torch.nn.Linear(hidden2_size, hidden2_size)
-        self.hidden5 = torch.nn.Linear(hidden2_size, hidden2_size)
-        self.hidden6 = torch.nn.Linear(hidden2_size, hidden2_size)
-        self.hidden7 = torch.nn.Linear(hidden2_size, hidden2_size)
-        self.hidden8 = torch.nn.Linear(hidden2_size, hidden2_size)
-                
-
-        self.output = torch.nn.Linear(hidden2_size, output_size)
-        torch.nn.init.normal_(self.hidden1.weight,mean=0,std=0.1)
-        torch.nn.init.normal_(self.hidden2.weight,mean=0,std=0.1)
-        torch.nn.init.normal_(self.hidden3.weight,mean=0,std=0.1)
-        torch.nn.init.normal_(self.hidden4.weight,mean=0,std=0.1)
-        torch.nn.init.normal_(self.hidden5.weight,mean=0,std=0.1)
-        torch.nn.init.normal_(self.hidden6.weight,mean=0,std=0.1)
-        torch.nn.init.normal_(self.hidden7.weight,mean=0,std=0.1)
-        torch.nn.init.normal_(self.hidden8.weight,mean=0,std=0.1)
-        
-
-        torch.nn.init.normal_(self.output.weight,mean=0,std=0.1)
-        #print(self.hidden1.weight)
-        #print(self.hidden2.weight)
-        #print(self.output.weight)
-
-    def forward(self, x):
-        x = F.relu(self.hidden1(x))
-        x = F.relu(self.hidden2(x))
-        x = F.relu(self.hidden3(x))
-        x = F.relu(self.hidden4(x))
-        x = F.relu(self.hidden5(x))
-        x = F.relu(self.hidden6(x))
-        x = F.relu(self.hidden7(x))
-        x = F.relu(self.hidden8(x))
-               
-
-        return self.output(x)
-
-    def get_layer_W(self):
-        return self.hidden1.weight
-
-
 
 class ExperimentalNN():
     def __init__(self, num_features, neuron_num, lr, lamda=0):
+    #def __init__(self, num_features, nn_model, lr, lamda=0):
         
         self.input_dim = num_features
-        self.net = TrialNet(self.input_dim,neuron_num,neuron_num,1)
-        self.net.double()
+        self.net = TrialNetXavInit(self.input_dim, neuron_num, neuron_num, 1)
+        #self.net= nn_model
+        depth=8
+        #self.net = FFNet(feature_size=num_features, depth=depth,
+        #                 hidden_sizes=[neuron_num]*depth, output_size=1,
+        #                 init="zero")
+        #self.net.double()
         self.loss_fn = torch.nn.MSELoss()
         self.lr = lr
         self.lambd_a = lamda # This is intentionaly spelled incorrect.Otherwise it's python keyword. 
 
         # Adam optimizer with recommended paramenters (0.9,0.999)
         self.optimizer=torch.optim.Adam(self.net.parameters(), 
-                                        lr=self.lr,betas=[0.9,0.999]) 
+                                         lr=self.lr, betas=[0.99,0.999]) 
 
     def predict(self, x):
         return self.net(x)
@@ -223,7 +238,9 @@ class ExperimentalNN():
         
         # Enable L1 (Lasso) Regularization for the first layer
         if self.lambd_a:
+            #loss += self.lambd_a*torch.sum(torch.abs(self.net.get_layer_W(1)))
             loss += self.lambd_a*torch.sum(torch.abs(self.net.get_layer_W()))
+            #loss += self.lambd_a/2*torch.sum(torch.abs(self.net.hidden2.weight))
             #loss += self.lambd_a*torch.sum(torch.abs(self.net.hidden8.weight))
             #loss += self.lambd_a*torch.sum(torch.abs(self.net.hidden4.weight))
          
