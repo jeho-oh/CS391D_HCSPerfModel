@@ -17,6 +17,7 @@ class DataLoader:
 
     
     def load(self,file,stack_features=0,scale=False):
+        torch.set_default_tensor_type('torch.cuda.FloatTensor')
         filepath = os.path.join(self.dir,file)
         try:
             self.data_frame = pd.read_csv(filepath)

@@ -418,6 +418,7 @@ if __name__ == "__main__":
     lr = 0.00003
     batch_size = 140'''
     # Process args from command shell
+    torch.set_default_tensor_type('torch.cuda.FloatTensor')
     argv = os.sys.argv[1:]
     args = parse_args(argv)
     if args.logfile:
