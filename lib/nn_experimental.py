@@ -303,7 +303,7 @@ class ModularDeepNN():
                 logmsg("Done {} training steps".format(i+1))
 
         Y_pred = Y_pred.unsqueeze(1)
-        train_loss_for_step = train_loss_for_step.detach().numpy()
+        train_loss_for_step = train_loss_for_step.cpu().detach().numpy()
         if plot:
             fig, ax = plt.subplots(figsize=(12, 7))
             ax.set_title("Training loss progress")
@@ -409,7 +409,7 @@ class ExperimentalNN():
                 logmsg("Done {} training steps".format(i+1))
 
         Y_pred = Y_pred.unsqueeze(1)
-        train_loss_for_step = train_loss_for_step.detach().numpy()
+        train_loss_for_step = train_loss_for_step.cpu().detach().numpy()
         if plot:
             fig, ax = plt.subplots(figsize=(12, 7))
             ax.set_title("Training loss progress")
