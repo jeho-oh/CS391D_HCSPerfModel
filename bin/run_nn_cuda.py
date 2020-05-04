@@ -352,7 +352,7 @@ def configFiasco():
     test_set_size = 300
     lr = 0.00005
     batch_size = 600
-    neuron_num = 800
+    neuron_num = 200
     lamda = 0
     #torch.autograd.set_detect_anomaly(True)
     '''
