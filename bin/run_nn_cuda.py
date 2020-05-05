@@ -370,7 +370,7 @@ def configFiasco():
         for i in range(experiments):
             res = run(epochs=epochs, train_set_size=train_set_size,
                 test_set_size=test_set_size, lr=lr, batch_size=batch_size,
-                neuron_num=neuron_num, lamda=lamda, plot=True, pca=True, eigenvec_num=80)
+                neuron_num=neuron_num, lamda=lamda, plot=True, pca=False, eigenvec_num=80)
             results.append(res)
             print("-------- Experiment Done --------")
         print("\n\n ---- \n Mean MRE:{} ".format(np.sum(np.array(results))/experiments))
