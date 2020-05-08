@@ -324,7 +324,7 @@ def configAxTLS():
     lr = 0.00002
     batch_size = 600
     neuron_num = 800
-    lamda = 1
+    lamda = 0.1
     #torch.autograd.set_detect_anomaly(True)
     '''
     epochs = 4000
