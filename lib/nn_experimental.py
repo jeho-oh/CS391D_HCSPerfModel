@@ -137,37 +137,37 @@ class TrialNetXavInit(torch.nn.Module):
         # Add regression on results for X264 to do this without pain
         self.hidden1 = torch.nn.Linear(obs_size, hidden_size)
         self.hidden2 = torch.nn.Linear(hidden_size, hidden2_size)
-        self.hidden3 = torch.nn.Linear(hidden2_size, hidden2_size)
+        '''self.hidden3 = torch.nn.Linear(hidden2_size, hidden2_size)
         self.hidden4 = torch.nn.Linear(hidden2_size, hidden2_size)
         self.hidden5 = torch.nn.Linear(hidden2_size, hidden2_size)
         self.hidden6 = torch.nn.Linear(hidden2_size, hidden2_size)
         self.hidden7 = torch.nn.Linear(hidden2_size, hidden2_size)
-        self.hidden8 = torch.nn.Linear(hidden2_size, hidden2_size)
+        self.hidden8 = torch.nn.Linear(hidden2_size, hidden2_size)'''
                 
         self.output = torch.nn.Linear(hidden2_size, output_size)
 
         torch.nn.init.xavier_normal_(self.hidden1.weight,
                                     gain=torch.nn.init.calculate_gain('relu'))
         torch.nn.init.xavier_normal_(self.hidden2.weight,gain=torch.nn.init.calculate_gain('relu'))
-        torch.nn.init.xavier_normal_(self.hidden3.weight,gain=torch.nn.init.calculate_gain('relu'))
+        '''torch.nn.init.xavier_normal_(self.hidden3.weight,gain=torch.nn.init.calculate_gain('relu'))
         torch.nn.init.xavier_normal_(self.hidden4.weight,gain=torch.nn.init.calculate_gain('relu'))
         torch.nn.init.xavier_normal_(self.hidden5.weight,gain=torch.nn.init.calculate_gain('relu'))
         torch.nn.init.xavier_normal_(self.hidden6.weight,gain=torch.nn.init.calculate_gain('relu'))
         torch.nn.init.xavier_normal_(self.hidden7.weight,gain=torch.nn.init.calculate_gain('relu'))
         torch.nn.init.xavier_normal_(self.hidden8.weight,gain=torch.nn.init.calculate_gain('relu'))
         
-        torch.nn.init.xavier_normal_(self.output.weight,gain=torch.nn.init.calculate_gain('linear'))
+        torch.nn.init.xavier_normal_(self.output.weight,gain=torch.nn.init.calculate_gain('linear'))'''
         
 
     def forward(self, x):
         x = F.relu(self.hidden1(x))
         x = F.relu(self.hidden2(x))
-        x = F.relu(self.hidden3(x))
+        '''x = F.relu(self.hidden3(x))
         x = F.relu(self.hidden4(x))
         x = F.relu(self.hidden5(x))
         x = F.relu(self.hidden6(x))
         x = F.relu(self.hidden7(x))
-        x = F.relu(self.hidden8(x))
+        x = F.relu(self.hidden8(x))'''
              
         return self.output(x)
 
