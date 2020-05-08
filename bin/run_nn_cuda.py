@@ -335,7 +335,7 @@ def configAxTLS():
     num_neurons = 30
     '''
     experiments=1
-    for train_set_size in [600,]:
+    for train_set_size in [900,]:
         batch_size = int(math.ceil(train_set_size/4))
         results = []
         for i in range(experiments):
@@ -427,8 +427,8 @@ if __name__ == "__main__":
         openlog()
 
     #configHipa()
-    #configAxTLS()
-    configFiasco()
+    configAxTLS()
+    #configFiasco()
     #configUCLib()
     
     
