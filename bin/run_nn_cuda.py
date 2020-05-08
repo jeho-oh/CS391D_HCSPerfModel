@@ -323,7 +323,7 @@ def configAxTLS():
     test_set_size = 200
     lr = 0.00002
     batch_size = 800
-    neuron_num = 800
+    neuron_num = 300
     lamda = 0.1
     #torch.autograd.set_detect_anomaly(True)
     '''
@@ -426,7 +426,7 @@ if __name__ == "__main__":
     else:
         openlog()
     
-    torch.seed(0)
+    torch.manual_seed(0)
     #configHipa()
     configAxTLS()
     #configFiasco()
