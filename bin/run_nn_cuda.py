@@ -335,13 +335,13 @@ def configAxTLS():
     num_neurons = 30
     '''
     experiments=1
-    for train_set_size in [600,]:
+    for train_set_size in [1200,]:
         batch_size = int(math.ceil(train_set_size/4))
         results = []
         for i in range(experiments):
             res = run(epochs=epochs, train_set_size=train_set_size,
                 test_set_size=test_set_size, lr=lr, batch_size=batch_size,
-                neuron_num=neuron_num, lamda=lamda, plot=True, pca=False, eigenvec_num=800)
+                neuron_num=neuron_num, lamda=lamda, plot=True, pca=True, eigenvec_num=800)
             results.append(res)
             print("-------- Experiment Done --------")
         print("\n\n ---- \n Mean MRE:{} ".format(np.sum(np.array(results))/experiments))
