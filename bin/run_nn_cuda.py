@@ -321,7 +321,7 @@ def configHipa():
 def configAxTLS():
     epochs = 2500
     test_set_size = 300
-    lr = 0.0003
+    lr = 0.0001
     batch_size = 600
     neuron_num = 300
     lamda = 0
