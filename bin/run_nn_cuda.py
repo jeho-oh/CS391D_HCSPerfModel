@@ -321,7 +321,7 @@ def configHipa():
 def configAxTLS():
     epochs = 2500
     test_set_size = 200
-    lr = 0.000002
+    lr = 0.00002
     batch_size = 800
     neuron_num = 800
     lamda = 0.1
@@ -425,7 +425,8 @@ if __name__ == "__main__":
         openlog(args.logfile)
     else:
         openlog()
-
+    
+    torch.seed(0)
     #configHipa()
     configAxTLS()
     #configFiasco()
