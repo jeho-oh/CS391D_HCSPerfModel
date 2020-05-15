@@ -329,7 +329,7 @@ def configHipa():
 
 
 def configAxTLS():
-    epochs = 300
+    epochs = 80
     test_set_size = 300
     lr = 0.0003
     batch_size = 800
