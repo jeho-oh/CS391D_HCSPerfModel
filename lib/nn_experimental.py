@@ -156,7 +156,7 @@ class TrialNetXavInit(torch.nn.Module):
         torch.nn.init.xavier_normal_(self.hidden7.weight,gain=torch.nn.init.calculate_gain('relu'))
         torch.nn.init.xavier_normal_(self.hidden8.weight,gain=torch.nn.init.calculate_gain('relu'))
         
-        torch.nn.init.xavier_normal_(self.output.weight,gain=torch.nn.init.calculate_gain('relu')
+        torch.nn.init.xavier_normal_(self.output.weight,gain=torch.nn.init.calculate_gain('relu'))
 
     def forward(self, x):
         x = F.relu(self.hidden1(x))
