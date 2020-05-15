@@ -348,7 +348,7 @@ class ExperimentalNN():
 
         # Adam optimizer with recommended paramenters (0.9,0.999)
         self.optimizer=torch.optim.Adam(self.net.parameters(), 
-                          lr=self.lr, betas=[0.9,0.999],weight_decay=0.9) 
+                          lr=self.lr, betas=[0.99,0.999],weight_decay=0.1) 
         #self.optimizer = torch.optim.SGD(self.net.parameters(),lr=self.lr)
 
     def predict(self, x):
