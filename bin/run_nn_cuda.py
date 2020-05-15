@@ -12,6 +12,7 @@ import argparse
 import numpy as np
 import math
 from sklearn import preprocessing
+import scipy.stats as stats
 
 ## Local modules from ../lib
 from nn_experimental import ExperimentalNN, FFNet, TrialNetUniformInit
@@ -328,7 +329,7 @@ def configHipa():
 
 
 def configAxTLS():
-    epochs = 100
+    epochs = 40
     test_set_size = 300
     lr = 0.0003
     batch_size = 800

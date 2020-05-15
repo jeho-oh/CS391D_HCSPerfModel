@@ -156,8 +156,7 @@ class TrialNetXavInit(torch.nn.Module):
         torch.nn.init.xavier_normal_(self.hidden7.weight,gain=torch.nn.init.calculate_gain('relu'))
         torch.nn.init.xavier_normal_(self.hidden8.weight,gain=torch.nn.init.calculate_gain('relu'))
         
-        torch.nn.init.xavier_normal_(self.output.weight,gain=torch.nn.init.calculate_gain('relu'))
-        
+        torch.nn.init.xavier_normal_(self.output.weight,gain=torch.nn.init.calculate_gain('relu
 
     def forward(self, x):
         x = F.relu(self.hidden1(x))
@@ -348,7 +347,7 @@ class ExperimentalNN():
 
         # Adam optimizer with recommended paramenters (0.9,0.999)
         self.optimizer=torch.optim.Adam(self.net.parameters(), 
-                          lr=self.lr, betas=[0.99,0.999]) 
+                          lr=self.lr, betas=[0.99,0.999],weight_decay=0.5) 
         #self.optimizer = torch.optim.SGD(self.net.parameters(),lr=self.lr)
 
     def predict(self, x):
