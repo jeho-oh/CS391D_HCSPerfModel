@@ -249,7 +249,7 @@ def run(epochs, train_set_size, test_set_size, lr, batch_size,
             logmsg("epoch {} test loss: {}".format(epoch,test_loss[epoch]))
 
    
-    final_test_mre_loss,_ = calc_epoch_mape_loss(X_test,Y_test,nn,pprint=True)
+    final_test_mre_loss,_ = calc_epoch_mape_loss(X_test,Y_test,nn,pprint=False)
     print("\n\n#####\n# Test MAPE Loss:{}".format(final_test_mre_loss))
     if plot:
         plot_loss(test_loss, train_loss, ylabel="MAPE",xlabel="Steps")
@@ -343,7 +343,7 @@ def configAxTLS():
                 test_set_size=test_set_size, lr=lr, batch_size=batch_size,
                 neuron_num=neuron_num, lamda=lamda, plot=True, pca=False, eigenvec_num=1500)
             results.append(res)
-            print("-------- Experiment {} Done  --------"/format(i))
+            print("-------- Experiment {} Done  --------".format(i))
         print("\n\n ---- \n Mean MRE:{} ".format(np.sum(np.array(results))/experiments))
         print("\n\n ---- \n results {} ".format(results))
     
