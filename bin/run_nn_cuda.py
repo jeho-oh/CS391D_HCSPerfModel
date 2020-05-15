@@ -319,12 +319,12 @@ def configHipa():
 
 
 def configAxTLS():
-    epochs = 600
+    epochs = 800
     test_set_size = 200
     lr = 0.0003
     batch_size = 800
     neuron_num = 200
-    lamda = 1
+    lamda = 0.1
     #torch.autograd.set_detect_anomaly(True)
     '''
     epochs = 4000
