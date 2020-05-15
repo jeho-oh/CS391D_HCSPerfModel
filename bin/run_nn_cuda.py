@@ -334,7 +334,7 @@ def configAxTLS():
     batch_size = 8
     num_neurons = 30
     '''
-    experiments=5
+    experiments=3
     #18
     for train_set_size in [1000,]:
         batch_size = int(math.ceil(train_set_size/4))
