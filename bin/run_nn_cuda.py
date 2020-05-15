@@ -33,6 +33,15 @@ def parse_args(argv):
     return argParser.parse_args(argv)
     
 
+def calc_confidence(results):
+     confidence = 0.95
+     n = results.size
+     print(n)
+     std_err = stats.tstd(results)
+     print(std_err)
+     h = stats.norm.interval(0.95, loc=0, scale=std_err/math.sqrt(n))
+     return h
+
 def calc_epoch_mse_loss(X,Y,nn_model,pprint=False):
     sample_num = X.shape[0] 
     Y_pred = torch.zeros(sample_num)
@@ -320,7 +329,7 @@ def configHipa():
 
 def configAxTLS():
     epochs = 600
-    test_set_size = 100
+    test_set_size = 300
     lr = 0.0003
     batch_size = 800
     neuron_num = 300
@@ -334,20 +343,20 @@ def configAxTLS():
     batch_size = 8
     num_neurons = 30
     '''
-    experiments=3
+    experiments=5
     #18
-    for train_set_size in [1000,]:
+    for train_set_size in [94,282,470]:
         batch_size = int(math.ceil(train_set_size/4))
-        results = []
+        results = np.zeros(experiments)
         for i in range(experiments):
-            res = run(epochs=epochs, train_set_size=train_set_size,
+            results[i] = run(epochs=epochs, train_set_size=train_set_size,
                 test_set_size=test_set_size, lr=lr, batch_size=batch_size,
                 neuron_num=neuron_num, lamda=lamda, plot=True, pca=False, eigenvec_num=1500)
-            results.append(res)
             print("-------- Experiment {} Done  --------".format(i))
-        print("\n\n ---- \n Mean MRE:{} ".format(np.sum(np.array(results))/experiments))
-        print("\n\n ---- \n results {} ".format(results))
-    
+        print("    _________________________\n    finished SIZE {}".format(train_set_size))
+        print(     "mean MRE:{}%   confidence interval:{} %".format(np.mean(results),calc_confidence(results)))
+        print("    ------------------------\n\n")
+
 def configFiasco():
     epochs = 700
     test_set_size = 300
