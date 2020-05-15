@@ -340,9 +340,9 @@ class ExperimentalNN():
         #                 hidden_sizes=[neuron_num]*depth, output_size=1,
         #                 init="zero")
         #self.net.double()
-        #self.loss_fn = torch.nn.MSELoss()
+        self.loss_fn = torch.nn.MSELoss()
         #self.loss_fn = MRE_MaxLoss
-        self.loss_fn = MAPELoss
+        #self.loss_fn = MAPELoss
         self.lr = lr
         self.lambd_a = lamda # This is intentionaly spelled incorrect.Otherwise it's python keyword. 
 
