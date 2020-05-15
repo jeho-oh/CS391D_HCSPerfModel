@@ -328,7 +328,7 @@ def configHipa():
 
 
 def configAxTLS():
-    epochs = 600
+    epochs = 100
     test_set_size = 300
     lr = 0.0003
     batch_size = 800
@@ -345,7 +345,7 @@ def configAxTLS():
     '''
     experiments=5
     #18
-    for train_set_size in [94,282,470]:
+    for train_set_size in [94]:
         batch_size = int(math.ceil(train_set_size/4))
         results = np.zeros(experiments)
         for i in range(experiments):
