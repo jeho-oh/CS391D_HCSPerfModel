@@ -426,7 +426,7 @@ if __name__ == "__main__":
     else:
         openlog()
     
-    torch.manual_seed(0)
+    #torch.manual_seed(0)
     #configHipa()
     configAxTLS()
     #configFiasco()
