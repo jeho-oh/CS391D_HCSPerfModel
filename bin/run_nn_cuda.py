@@ -319,7 +319,7 @@ def configHipa():
 
 
 def configAxTLS():
-    epochs = 100
+    epochs = 400
     test_set_size = 200
     lr = 0.0003
     batch_size = 800
@@ -343,7 +343,7 @@ def configAxTLS():
                 test_set_size=test_set_size, lr=lr, batch_size=batch_size,
                 neuron_num=neuron_num, lamda=lamda, plot=True, pca=False, eigenvec_num=1500)
             results.append(res)
-            print("-------- Experiment Done --------")
+            print("-------- Experiment {} Done  --------"/format(i))
         print("\n\n ---- \n Mean MRE:{} ".format(np.sum(np.array(results))/experiments))
         print("\n\n ---- \n results {} ".format(results))
     
