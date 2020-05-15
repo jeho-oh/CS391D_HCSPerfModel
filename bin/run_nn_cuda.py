@@ -364,7 +364,7 @@ def configFiasco():
     num_neurons = 30
     '''
     experiments=1
-    for train_set_size in [1200,]:
+    for train_set_size in [7500,]:
         batch_size = int(math.ceil(train_set_size/4))
         results = []
         for i in range(experiments):
