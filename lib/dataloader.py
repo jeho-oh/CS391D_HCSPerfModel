@@ -16,7 +16,7 @@ class DataLoader:
         self.num_samples = 0 
 
     
-    def load(self,file,stack_features=0,scale=False, Kernel_PCA=False):
+    def load(self,file,stack_features=0,scale=False, kernel_PCA=False):
         torch.set_default_tensor_type('torch.cuda.FloatTensor')
         filepath = os.path.join(self.dir,file)
         try:
