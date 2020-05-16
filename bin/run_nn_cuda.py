@@ -346,13 +346,13 @@ def configAxTLS():
     '''
     experiments=5
     #18
-    for train_set_size in [7500,15000]:
+    for train_set_size in [470]:
         batch_size = int(math.ceil(batch_size))
         results = np.zeros(experiments)
         for i in range(experiments):
             results[i] = run(epochs=epochs, train_set_size=train_set_size,
                 test_set_size=test_set_size, lr=lr, batch_size=batch_size,
-                neuron_num=neuron_num, lamda=lamda, plot=True, pca=False, eigenvec_num=1500)
+                neuron_num=neuron_num, lamda=lamda, plot=True, pca=True, eigenvec_num=30)
             print("-------- Experiment {} Done  --------".format(i))
         print("    _________________________\n    finished SIZE {}".format(train_set_size))
         print(     "mean MRE:{}%   confidence interval:{} %".format(np.mean(results),calc_confidence(results)))
@@ -436,9 +436,9 @@ if __name__ == "__main__":
     
     #torch.manual_seed(0)
     #configHipa()
-    #configAxTLS()
+    configAxTLS()
     #configFiasco()
-    configUCLib()
+    #configUCLib()
     
     
     
