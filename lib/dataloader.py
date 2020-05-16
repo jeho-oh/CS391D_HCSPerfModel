@@ -77,7 +77,7 @@ class DataLoader:
         from sklearn.decomposition import KernelPCA
         if kernel_PCA:
             transformer = KernelPCA(n_components=20, kernel='poly')
-            self.X = transformer.fit_transform(X)
+            self.X = transformer.fit_transform(self.X)
             self.num_features = 20
 
         print("dtype:" + str(self.X.dtype))
