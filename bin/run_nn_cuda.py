@@ -331,7 +331,7 @@ def configHipa():
 def configAxTLS():
     epochs = 200
     test_set_size = 300
-    lr = 0.0001
+    lr = 0.001
     batch_size = 800
     neuron_num = 300
     lamda = 0.00
@@ -347,7 +347,7 @@ def configAxTLS():
     experiments=5
     #18
     for train_set_size in [470]:
-        batch_size = int(math.ceil(train_set_size/4))
+        batch_size = int(math.ceil(train_set_size/2))
         results = np.zeros(experiments)
         for i in range(experiments):
             results[i] = run(epochs=epochs, train_set_size=train_set_size,
@@ -375,19 +375,18 @@ def configFiasco():
     num_neurons = 30
     '''
     experiments=1
-    for train_set_size in [1200,]:
-        batch_size = int(math.ceil(train_set_size/4))
-        results = []
+    for train_set_size in [234,702,1170]:
+        batch_size = int(math.ceil(train_set_size/2))
+        results = np.zeros(5)
         for i in range(experiments):
-            res = run(epochs=epochs, train_set_size=train_set_size,
+            results[i] = run(epochs=epochs, train_set_size=train_set_size,
                 test_set_size=test_set_size, lr=lr, batch_size=batch_size,
                 neuron_num=neuron_num, lamda=lamda, plot=True, pca=False, eigenvec_num=80)
             results.append(res)
             print("-------- Experiment Done --------")
-        print("\n\n ---- \n Mean MRE:{} ".format(np.sum(np.array(results))/experiments))
-        print("\n\n ---- \n results {} ".format(results))
-    
-
+        print("    _________________________\n    finished SIZE {}".format(train_set_size))
+        print(     "mean MRE:{}%   confidence interval:{} %".format(np.mean(results),calc_confidence(results)))
+        print("    ------------------------\n\n")
 
 def configUCLib():
     epochs = 200
