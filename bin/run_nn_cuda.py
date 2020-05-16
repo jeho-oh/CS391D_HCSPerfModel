@@ -175,11 +175,11 @@ def doPca(samples, eigenvec_num):
 
     
 def run(epochs, train_set_size, test_set_size, lr, batch_size, 
-        neuron_num,lamda,plot=False,pca=False,eigenvec_num=30):
+        neuron_num,lamda,plot=False,pca=False,kernel_PCA=False,eigenvec_num=30):
   
     data_set_file = args.dataset
     HCS_dataset = DataLoader(DATA_DIR,do_torch=True)
-    HCS_dataset.load(data_set_file,scale=True,stack_features=0)
+    HCS_dataset.load(data_set_file,scale=True,stack_features=0,kernel_PCA=True)
     #logmsg(HCS_dataset.num_features)
     #raise Exception()
 
@@ -204,7 +204,7 @@ def run(epochs, train_set_size, test_set_size, lr, batch_size,
         X_test = torch.matmul(X_test,eigen_transform_mat)
         feature_num = X.size()[1]
         print("pca feature num:" + str(feature_num))
-
+    
     #X=torch.as_tensor(preprocessing.scale(X),dtype=torch.float64)
     #X_test=torch.as_tensor(preprocessing.scale(X_test),dtype=torch.float64)
     #Y = Y/100000
@@ -352,7 +352,7 @@ def configAxTLS():
         for i in range(experiments):
             results[i] = run(epochs=epochs, train_set_size=train_set_size,
                 test_set_size=test_set_size, lr=lr, batch_size=batch_size,
-                neuron_num=neuron_num, lamda=lamda, plot=True, pca=True, eigenvec_num=30)
+                neuron_num=neuron_num, lamda=lamda, plot=True, pca=False, kernel_PCA=True,eigenvec_num=30)
             print("-------- Experiment {} Done  --------".format(i))
         print("    _________________________\n    finished SIZE {}".format(train_set_size))
         print(     "mean MRE:{}%   confidence interval:{} %".format(np.mean(results),calc_confidence(results)))
