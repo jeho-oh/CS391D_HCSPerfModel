@@ -374,7 +374,7 @@ def configFiasco():
     batch_size = 8
     num_neurons = 30
     '''
-    experiments=1
+    experiments=5
     for train_set_size in [234,702,1170]:
         batch_size = int(math.ceil(train_set_size/2))
         results = np.zeros(5)
@@ -382,7 +382,6 @@ def configFiasco():
             results[i] = run(epochs=epochs, train_set_size=train_set_size,
                 test_set_size=test_set_size, lr=lr, batch_size=batch_size,
                 neuron_num=neuron_num, lamda=lamda, plot=True, pca=False, eigenvec_num=80)
-            results.append(res)
             print("-------- Experiment Done --------")
         print("    _________________________\n    finished SIZE {}".format(train_set_size))
         print(     "mean MRE:{}%   confidence interval:{} %".format(np.mean(results),calc_confidence(results)))
@@ -405,19 +404,18 @@ def configUCLib():
     num_neurons = 30
     '''
     #for train_set_size in [269,807,1345]:
-    trials = 2
-    for train_set_size in [1245]:
+    trials = 5
+    for train_set_size in [269,807,1345]:
         batch_size = int(math.ceil(train_set_size/4))
-        results = []
+        results = np.zeros(5)
         for i in range(trials):
-            res = run(epochs=epochs, train_set_size=train_set_size,
+            results[i] = run(epochs=epochs, train_set_size=train_set_size,
                 test_set_size=test_set_size, lr=lr, batch_size=batch_size,
                 neuron_num=neuron_num, lamda=lamda, pca=False, eigenvec_num=30, plot=True)
-            results.append(res)
             print("-------- Experiment Done --------")
-        print("\n\n ---- \n Mean MRE:{} ".format(np.sum(np.array(results))/trials))
-        print("\n\n ---- \n results {} ".format(results))
-    
+        print("    _________________________\n    finished SIZE {}".format(train_set_size))
+        print(     "mean MRE:{}%   confidence interval:{} %".format(np.mean(results),calc_confidence(results)))
+        print("    ------------------------\n\n")
 
 if __name__ == "__main__":
     
