@@ -203,7 +203,7 @@ def run(epochs, train_set_size, test_set_size, lr, batch_size,
         X = torch.matmul(X,eigen_transform_mat)
         X_test = torch.matmul(X_test,eigen_transform_mat)
         feature_num = X.size()[1]
-        print("pca feature num:" + feature_num)
+        print("pca feature num:" + str(feature_num))
 
     #X=torch.as_tensor(preprocessing.scale(X),dtype=torch.float64)
     #X_test=torch.as_tensor(preprocessing.scale(X_test),dtype=torch.float64)
