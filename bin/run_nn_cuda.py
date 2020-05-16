@@ -331,7 +331,7 @@ def configHipa():
 def configAxTLS():
     epochs = 200
     test_set_size = 300
-    lr = 0.001
+    lr = 0.0003
     batch_size = 800
     neuron_num = 300
     lamda = 0.00
@@ -359,7 +359,7 @@ def configAxTLS():
         print("    ------------------------\n\n")
 
 def configFiasco():
-    epochs = 700
+    epochs = 500
     test_set_size = 300
     lr = 0.00005
     batch_size = 600
@@ -436,8 +436,8 @@ if __name__ == "__main__":
     
     #torch.manual_seed(0)
     #configHipa()
-    configAxTLS()
-    #configFiasco()
+    #configAxTLS()
+    configFiasco()
     #configUCLib()
     
     
