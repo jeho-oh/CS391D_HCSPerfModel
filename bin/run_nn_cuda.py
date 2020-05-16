@@ -346,8 +346,8 @@ def configAxTLS():
     '''
     experiments=5
     #18
-    for train_set_size in [470]:
-        batch_size = int(math.ceil(train_set_size/2))
+    for train_set_size in [316,948,1580]:
+        batch_size = int(math.ceil(train_set_size/4))
         results = np.zeros(experiments)
         for i in range(experiments):
             results[i] = run(epochs=epochs, train_set_size=train_set_size,
@@ -436,8 +436,8 @@ if __name__ == "__main__":
     
     #torch.manual_seed(0)
     #configHipa()
-    #configAxTLS()
-    configFiasco()
+    configAxTLS()
+    #configFiasco()
     #configUCLib()
     
     
