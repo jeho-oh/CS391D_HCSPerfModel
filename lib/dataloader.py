@@ -16,7 +16,7 @@ class DataLoader:
         self.num_samples = 0 
 
     
-    def load(self,file,stack_features=0,scale=False):
+    def load(self,file,stack_features=0,scale=False, Kernel_PCA=False):
         torch.set_default_tensor_type('torch.cuda.FloatTensor')
         filepath = os.path.join(self.dir,file)
         try:
@@ -38,7 +38,7 @@ class DataLoader:
         
         self.X = np.zeros([self.num_samples,self.num_features])
         self.Y = np.zeros([self.num_samples])
-        for index,row in self.data_frame.iterrows():
+        for index, row in self.data_frame.iterrows():
             self.Y[index] = row.iloc[-1]
             if not stack_features:
                 self.X[index] = row.iloc[:-1].to_numpy()
@@ -73,6 +73,12 @@ class DataLoader:
             if max_Y == 0:
                 max_Y = 1
             self.Y = np.divide(self.Y, max_Y)
+        from sklearn.datasets import load_digits
+        from sklearn.decomposition import KernelPCA
+        if kernel_PCA:
+            transformer = KernelPCA(n_components=20, kernel='poly')
+            self.X = transformer.fit_transform(X)
+            self.num_features = 20
 
         print("dtype:" + str(self.X.dtype))
     def __len__(self):
